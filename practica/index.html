@@ -1,10 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="BookStore">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>AngularJS Exercises</title>
+    <link rel="icon" href="public/img/book-icon.png">
+    <!-- bootstrap 4 alpha  -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <!-- Font asewome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato" /> -->
+
+    <link rel="stylesheet" href="css/custom.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.min.js"></script>
+    <script src="js/app.js"></script>
   </head>
   <body>
+    <header>
+      <nav class="navbar navbar-inverse bg-primary fixed-top">
+        <a class="navbar-brand" href="">
+          <img src="https://s-media-cache-ak0.pinimg.com/originals/7d/da/38/7dda385ed3724fea700d45a0349d9e77.png" alt="" width="40" height="40">
+          <h1 class="navbar-brand mb-0">Book Store</h1>
+        </a>
+      </nav>
+    </header>
+
+    <div class="content" ng-controller="BookStoreController as store">
+      <div style="padding: 10px;">
+        <div class="card">
+          <div class="card-header">
+            <form class="form-inline" role="form" method="post">
+              <label class="sr-only" for="inlineFormInput">Search</label>
+              <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Buscar" ng-model="store.search">
+
+              <label class="custom-control custom-checkbox mb-2 mr-sm-2 mb-sm-0">
+                <select class="form-control" name="" ng-model="store.sort">
+                  <option value="titulo">Titulo</option>
+                  <option value="autor">Autor</option>
+                </select>
+              </label>
+
+              <button type="submit" class="btn btn-primary">Buscar</button>
+            </form>
+          </div>
+          <div class="card-block row" ng-repeat="record in store.records | orderBy:store.sort | filter:store.search">
+            <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+              <img ng-src="{{record.img}}" alt="" width="100%" height="250px;">
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+              <h4 class="card-title">{{record.titulo}}</h4>
+              <p class="card-text mb-2 text-muted">{{record.autor}}</p>
+              <p class="card-text">{{record.descripcion}}</p>
+              <a href="#" class="btn btn-outline-primary">Ver mas</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </body>
 </html>
