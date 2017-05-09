@@ -1,0 +1,63 @@
+<div class="card-block row" ng-show="card.isSelected(2)">
+  <!-- <div ui-view="detail"></div> -->
+  <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
+    <img ng-src="{{record.img}}" alt="" width="100%" height="250px;">
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+    <h4 class="card-title">{{record.titulo}}</h4>
+    <p class="card-text mb-2 text-muted">{{record.autor}}</p>
+    <div class="">
+      <blockquote ng-repeat="review in record.reviews">
+				<b>Stars: {{review.stars}}</b>
+	 			{{review.body}}
+				<cite>by: {{review.author}}</cite>
+			</blockquote>
+    </div>
+    <!-- <a ng-href="detail/{{record.id}}.html" class="btn btn-outline-primary">Ver mas</a> -->
+    <button type="button" class="btn btn-primary btn-lato" data-toggle="modal" data-target="#moreModal" ng-click="store.moreDetail(record)">
+      Calificar
+    </button>
+  </div>
+
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="moreModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content" ng-controller="ReviewController as reviewCtrl">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{store.activeBook.titulo}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="" action="" method="post" novalidate>
+          <div class="form-group">
+				 			<label>Stars: </label>
+				 			<select class="form-control" ng-model="reviewCtrl.review.stars" required>
+				 				<option value="1">1 star</option>
+				 				<option value="2">2 stars</option>
+				 				<option value="3">3 stars</option>
+				 				<option value="4">4 stars</option>
+				 				<option value="5">5 stars</option>
+				 			</select>
+				 		</div>
+				 		<div class="form-group">
+				 		<label>Comments: </label>
+				 			<textarea class="form-control ng-invalid" ng-model="reviewCtrl.review.body" placeholder="Add your comment" name="" id="" cols="30" rows="10" required></textarea>
+				 		</div>
+				 		<div class="form-group">
+				 			<label>by:</label>
+			 				<input placeholder="somebody@something.com" class="form-control ng-invalid" type="email" ng-model="reviewCtrl.review.author" required />
+				 		</div>
+            <!-- <div> reviewForm is {{reviewForm.$valid}}</div> -->
+            <!-- <input type="submit" value="Submit" class="btn btn-primary" /> -->
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-click="reviewCtrl.addReview(record)">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

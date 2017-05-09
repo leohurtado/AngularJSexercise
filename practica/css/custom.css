@@ -18,3 +18,7 @@ h1, h2, h3, h4{
   margin: 20px;
   background-color: #ffffff;
 }
+
+.btn-lato {
+  font-family: 'Lato';
+}

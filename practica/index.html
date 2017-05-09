@@ -2,6 +2,7 @@
 <html ng-app="BookStore">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AngularJS Exercises</title>
     <link rel="icon" href="public/img/book-icon.png">
     <!-- bootstrap 4 alpha  -->
@@ -19,46 +20,57 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.min.js"></script>
     <script src="js/app.js"></script>
   </head>
-  <body>
+  <body ng-controller="BookStoreController as store">
     <header>
-      <nav class="navbar navbar-inverse bg-primary fixed-top">
+      <nav class="navbar navbar navbar-toggleable-md navbar-inverse bg-primary fixed-top">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
         <a class="navbar-brand" href="">
           <img src="https://s-media-cache-ak0.pinimg.com/originals/7d/da/38/7dda385ed3724fea700d45a0349d9e77.png" alt="" width="40" height="40">
           <h1 class="navbar-brand mb-0">Book Store</h1>
         </a>
+
+         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+           <form class="form-inline my-2 my-lg-0" role="form" method="post">
+             <!-- <label class="sr-only" for="inlineFormInput">Search</label> -->
+             <input type="text" class="form-control mr-sm-2" id="inlineFormInput" placeholder="Buscar" ng-model="store.search">
+
+             <!-- <label class="custom-control custom-checkbox mb-2 mr-sm-2 mb-sm-0"> -->
+               <select class="form-control" name="" ng-model="store.sort">
+                 <option value="titulo">Titulo</option>
+                 <option value="autor">Autor</option>
+               </select>
+             <!-- </label> -->
+
+             <!-- <button type="submit" class="btn btn-primary">Buscar</button> -->
+           </form>
+         </div>
       </nav>
     </header>
 
-    <div class="content" ng-controller="BookStoreController as store">
-      <div style="padding: 10px;">
-        <div class="card">
-          <div class="card-header">
-            <form class="form-inline" role="form" method="post">
-              <label class="sr-only" for="inlineFormInput">Search</label>
-              <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Buscar" ng-model="store.search">
-
-              <label class="custom-control custom-checkbox mb-2 mr-sm-2 mb-sm-0">
-                <select class="form-control" name="" ng-model="store.sort">
-                  <option value="titulo">Titulo</option>
-                  <option value="autor">Autor</option>
-                </select>
-              </label>
-
-              <button type="submit" class="btn btn-primary">Buscar</button>
-            </form>
-          </div>
-          <div class="card-block row" ng-repeat="record in store.records | orderBy:store.sort | filter:store.search">
-            <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2">
-              <img ng-src="{{record.img}}" alt="" width="100%" height="250px;">
+    <div class="content">
+      <div style="padding: 10px;" >
+        <section ng-init="card.tab" ng-controller="CardController as card">
+          <div class="card">
+            <div class="card-header">
+              <ul class="nav nav-pills card-header-pills">
+                <li class="nav-item">
+                  <a class="nav-link" href="" ng-class="{active:card.isSelected(1)}" ng-click="card.selectTab(1)" ui-sref="main" ui-sref-active="active">Main</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="" ng-class="{active:card.isSelected(2)}" ng-click="card.selectTab(2)" ui-sref="detail" ui-sref-active="active">Detail</a>
+                </li>
+                <!-- <li class="nav-item">
+                <a class="nav-link disabled" href="#">Disabled</a>
+                </li> -->
+              </ul>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
-              <h4 class="card-title">{{record.titulo}}</h4>
-              <p class="card-text mb-2 text-muted">{{record.autor}}</p>
-              <p class="card-text">{{record.descripcion}}</p>
-              <a href="#" class="btn btn-outline-primary">Ver mas</a>
+            <div class="" ng-repeat="record in store.records | orderBy:store.sort | filter:store.search">
+              <ui-view></ui-view>
             </div>
           </div>
-        </div>
+        </section>
       </div>
     </div>
 
